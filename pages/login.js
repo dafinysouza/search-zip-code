@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import Input from '../src/components/Input';
 import Container from '../src/components/Container';
 import Button from '../src/components/Button';
 import Text from '../src/components/Text/Index';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Footer from '../src/components/Footer';
 
 function Login() {
   const router = useRouter();
@@ -41,6 +43,9 @@ function Login() {
 
   return (
     <>
+      <Head>
+        <title>Login</title>
+      </Head>
       <Container>
         <Text tag="h1">Faça seu Login.</Text>
 
@@ -54,6 +59,7 @@ function Login() {
           <Link href="/cadastro">Cadastre-se.</Link>
         </Text>
       </Container>
+      <Footer />
     </>
   );
 }

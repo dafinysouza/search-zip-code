@@ -1,5 +1,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
+
+import Container from '../src/components/Container';
+import Footer from '../src/components/Footer';
 
 export default function Home() {
   useEffect(() => {
@@ -12,5 +16,15 @@ export default function Home() {
 
   const router = useRouter();
 
-  return <h1>Home</h1>;
+  return (
+    <>
+      <Head>
+        <title>Home</title>
+      </Head>
+      <Container>
+        <h1>Home</h1>
+      </Container>
+      <Footer />
+    </>
+  );
 }

@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import Input from '../src/components/Input';
 import Container from '../src/components/Container';
 import Button from '../src/components/Button';
 import Text from '../src/components/Text/Index';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Footer from '../src/components/Footer';
 
 function Cadastro() {
   const router = useRouter();
@@ -29,6 +31,9 @@ function Cadastro() {
 
   return (
     <>
+      <Head>
+        <title>Cadastro</title>
+      </Head>
       <Container>
         <Text tag="h1">Faça seu Cadastro.</Text>
 
@@ -44,6 +49,7 @@ function Cadastro() {
           <Link href="/login">Conecte-se</Link>
         </Text>
       </Container>
+      <Footer />
     </>
   );
 }
