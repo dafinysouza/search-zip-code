@@ -1,0 +1,15 @@
+.footer {
+  background-color: #212121;
+  color: #fff;
+  height: 60px;
+  line-height: 60px;
+}
+
+.banner {
+  width: 100%;
+  height: 200px;
+  background-image: url('/cidade.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
