@@ -1,0 +1,13 @@
+.button {
+  color: #fff;
+  background-color: #4caf50;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 2px;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 8rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
