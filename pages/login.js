@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import Input from '../src/components/Input';
+import Header from '../src/components/Header';
 import Container from '../src/components/Container';
+import Input from '../src/components/Input';
 import Button from '../src/components/Button';
 import Text from '../src/components/Text/Index';
 import Link from 'next/link';
@@ -46,9 +47,10 @@ function Login() {
       <Head>
         <title>Login</title>
       </Head>
-      <Container>
-        <Text tag="h1">Faça seu Login.</Text>
 
+      <Header text="Faça seu Login." />
+
+      <Container>
         <Input type="email" placeholder="E-mail" />
 
         <Input type="password" placeholder="Senha" />
