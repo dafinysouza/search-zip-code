@@ -23,6 +23,7 @@ export default function Home() {
   const mostrarCep = () => {
     const inputCep = document.querySelector('input[name="cep"]').value;
 
+
     if (inputCep != '') {
       buscarCep(inputCep);
     } else {
@@ -31,6 +32,7 @@ export default function Home() {
         setAviso(false);
       }, 1000);
     }
+
   };
 
   useEffect(() => {
@@ -52,7 +54,9 @@ export default function Home() {
       <Header text="Pesquise seu endereço" />
 
       <Container>
+
         <div className={styles.wrapper}>
+
           <Input id="cep" type="text" name="cep" placeholder="CEP"></Input>
 
           <Button click={mostrarCep} color={aviso ? '#f14545' : ''}>
@@ -61,7 +65,9 @@ export default function Home() {
         </div>
         <br />
         {dados && (
+
           <table width="500" className={styles.table} border="0" cellPadding="10" cellSpacing="0">
+            <tbody>
             <tr style={{ backgroundColor: '#eee' }}>
               <td>CEP:</td>
               <td>{dados.cep}</td>
@@ -82,6 +88,7 @@ export default function Home() {
               <td>UF:</td>
               <td>{dados.uf}</td>
             </tr>
+            </tbody>
           </table>
         )}
       </Container>
