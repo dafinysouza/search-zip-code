@@ -18,3 +18,9 @@ A primeira coisa para que seja possível rodar o projeto é instalar todas depen
 Após baixar todas dependências, basta rodar o projeto utilizando o comando:
 
 `npm run dev` ou `yarn dev`
+
+# Acessos
+
+`email: 'convidado@email.com'`
+
+`password: 'senha123'`

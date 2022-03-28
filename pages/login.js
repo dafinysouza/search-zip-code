@@ -17,8 +17,8 @@ function Login() {
 
   const user = [
     {
-      username: 'gabriel',
-      email: 'gabriel@email.com',
+      username: 'convidado',
+      email: 'convidado@email.com',
       password: 'senha123',
     },
   ];

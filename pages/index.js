@@ -46,7 +46,14 @@ export default function Home() {
     const inputLocalidade = document.querySelector('input[name="localidade"]').value;
     const inputUf = document.querySelector('input[name="uf"]').value;
 
-    buscarEndereco(inputLogradouro, inputLocalidade, inputUf);
+    if (inputLogradouro != '' && inputLocalidade != '' && inputUf != '') {
+      buscarEndereco(inputLogradouro, inputLocalidade, inputUf);
+    } else {
+      setAviso(true);
+      setTimeout(() => {
+        setAviso(false);
+      }, 1000);
+    }
   };
 
   const ativarCep = () => {
@@ -139,7 +146,9 @@ export default function Home() {
             <Input id="localidade" type="text" name="localidade" placeholder="Cidade"></Input>
             <Input id="uf" type="text" name="uf" placeholder="UF"></Input>
 
-            <Button click={mostrarEndereco}>Pesquisar por Endereco</Button>
+            <Button click={mostrarEndereco} color={aviso ? '#f14545' : ''}>
+              {aviso ? 'Campos em branco' : 'Pesquisar por Endereco'}
+            </Button>
 
             <br />
 
