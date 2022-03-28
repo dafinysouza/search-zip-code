@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './style.module.css';
 
-const Input = ({ type, placeholder }) => {
+const Input = ({ type, placeholder, ...props }) => {
   const [inputValue, setInputValue] = useState('');
 
   return (
@@ -15,6 +15,7 @@ const Input = ({ type, placeholder }) => {
             type={type}
             placeholder={placeholder}
             value={inputValue}
+            {...props}
           />
         </label>
       </div>
