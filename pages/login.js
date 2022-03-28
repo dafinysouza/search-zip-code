@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
@@ -11,6 +11,8 @@ import Link from 'next/link';
 import Footer from '../src/components/Footer';
 
 function Login() {
+  const [aviso, setAviso] = useState(false);
+
   const router = useRouter();
 
   const user = [
@@ -38,6 +40,11 @@ function Login() {
       if (inputEmail === item.email && inputPassword === item.password) {
         window.localStorage.setItem('currentUser', item.username);
         return router.push('/');
+      } else {
+        setAviso(true);
+        setTimeout(() => {
+          setAviso(false);
+        }, 1000);
       }
     });
   }
@@ -55,7 +62,9 @@ function Login() {
 
         <Input type="password" placeholder="Senha" />
 
-        <Button click={validarUsuario}>Acessar</Button>
+        <Button click={validarUsuario} color={aviso ? '#f14545' : ''}>
+          {aviso ? 'Dados Inválidos' : 'Acessar'}
+        </Button>
 
         <Text tag="p">
           <Link href="/cadastro">Cadastre-se.</Link>

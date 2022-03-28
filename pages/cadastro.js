@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import Head from 'next/head';
 
 import Header from '../src/components/Header';
@@ -11,7 +10,7 @@ import Link from 'next/link';
 import Footer from '../src/components/Footer';
 
 function Cadastro() {
-  useEffect(() => {}, []);
+  const [aviso, setAviso] = useState(false);
 
   function cadastrarUsuario() {
     const inputNome = document.querySelector('input[type="text"]').value;
@@ -20,12 +19,19 @@ function Cadastro() {
 
     const localStorageData = JSON.parse(window.localStorage.getItem('userAccess'));
 
-    localStorageData.push({
-      username: inputNome,
-      email: inputEmail,
-      password: inputPassword,
-    });
-    window.localStorage.setItem('userAccess', JSON.stringify(localStorageData));
+    if (inputNome != '' && inputEmail != '' && inputPassword != '') {
+      localStorageData.push({
+        username: inputNome,
+        email: inputEmail,
+        password: inputPassword,
+      });
+      window.localStorage.setItem('userAccess', JSON.stringify(localStorageData));
+    } else {
+      setAviso(true);
+      setTimeout(() => {
+        setAviso(false);
+      }, 1000);
+    }
   }
 
   return (
@@ -43,7 +49,9 @@ function Cadastro() {
 
         <Input type="password" placeholder="Senha" />
 
-        <Button click={cadastrarUsuario}>Cadastrar</Button>
+        <Button click={cadastrarUsuario} color={aviso ? '#f14545' : ''}>
+          {aviso ? 'Campos em branco' : 'Cadastrar'}
+        </Button>
 
         <Text tag="p">
           <Link href="/login">Conecte-se</Link>
