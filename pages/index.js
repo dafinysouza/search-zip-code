@@ -11,15 +11,16 @@ export default function Home() {
   const [dados, setDados] = useState();
 
   const buscarCep = (cep) => {
-    fetch('https://viacep.com.br/ws/' + cep + '/json').then((response) => response.json()).then((json) => setDados(json));
-  }
-
+    fetch('https://viacep.com.br/ws/' + cep + '/json')
+      .then((response) => response.json())
+      .then((json) => setDados(json));
+  };
 
   const mostrarCep = () => {
     const inputCep = document.querySelector('input[name="cep"]').value;
 
     buscarCep(inputCep);
-  }
+  };
 
   useEffect(() => {
     const currentUser = window.localStorage.getItem('currentUser');
@@ -37,7 +38,7 @@ export default function Home() {
         <title>Home</title>
       </Head>
       <Container>
-        <div className='form'>
+        <div className="form">
           <Input id="cep" type="text" name="cep" placeholder="CEP"></Input>
 
           <div>
@@ -47,26 +48,28 @@ export default function Home() {
 
         {dados && (
           <table border="1">
-            <tr>
-              <td>CEP:</td>
-              <td>{dados.cep}</td>
-            </tr>
-            <tr>
-              <td>Endereço:</td>
-              <td>{dados.logradouro}</td>
-            </tr>
-            <tr>
-              <td>Bairo:</td>
-              <td>{dados.bairro}</td>
-            </tr>
-            <tr>
-              <td>Cidade:</td>
-              <td>{dados.localidade}</td>
-            </tr>
-            <tr>
-              <td>UF:</td>
-              <td>{dados.uf}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>CEP:</td>
+                <td>{dados.cep}</td>
+              </tr>
+              <tr>
+                <td>Endereço:</td>
+                <td>{dados.logradouro}</td>
+              </tr>
+              <tr>
+                <td>Bairo:</td>
+                <td>{dados.bairro}</td>
+              </tr>
+              <tr>
+                <td>Cidade:</td>
+                <td>{dados.localidade}</td>
+              </tr>
+              <tr>
+                <td>UF:</td>
+                <td>{dados.uf}</td>
+              </tr>
+            </tbody>
           </table>
         )}
       </Container>
