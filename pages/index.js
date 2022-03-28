@@ -20,17 +20,16 @@ export default function Home() {
     fetch('https://viacep.com.br/ws/' + cep + '/json')
       .then((response) => response.json())
       .then((json) => setEndereco(json));
-  }
+  };
 
   const buscarEndereco = (logradouro, localidade, uf) => {
     fetch('https://viacep.com.br/ws/' + uf + '/' + localidade + '/' + logradouro + '/json/')
-    .then((response) => response.json())
-    .then((json) => setCep(json));
-  }
+      .then((response) => response.json())
+      .then((json) => setCep(json));
+  };
 
   const mostrarCep = () => {
     const inputCep = document.querySelector('input[name="cep"]').value;
-
 
     if (inputCep != '') {
       buscarCep(inputCep);
@@ -40,7 +39,6 @@ export default function Home() {
         setAviso(false);
       }, 1000);
     }
-
   };
 
   const mostrarEndereco = () => {
@@ -49,15 +47,25 @@ export default function Home() {
     const inputUf = document.querySelector('input[name="uf"]').value;
 
     buscarEndereco(inputLogradouro, inputLocalidade, inputUf);
-  }
+  };
 
   const ativarCep = () => {
     setAtivarStep(true);
-  }
+  };
 
   const ativarEndereco = () => {
     setAtivarStep(false);
-  }
+  };
+
+  useEffect(() => {
+    if (ativarStep == true) {
+      document.querySelector('input[name="cep"]').value = '';
+    } else {
+      document.querySelector('input[name="logradouro"]').value = '';
+      document.querySelector('input[name="localidade"]').value = '';
+      document.querySelector('input[name="uf"]').value = '';
+    }
+  }, [ativarStep]);
 
   useEffect(() => {
     const currentUser = window.localStorage.getItem('currentUser');
@@ -77,18 +85,26 @@ export default function Home() {
 
       <Header text="Pesquise seu endereço" />
       <Container>
-        <div>
-          <Button click={ativarCep}>Pesquisar por CEP</Button>
-          <Button click={ativarEndereco}>Pesquisar por Endereço</Button>
+        <div className={styles.buttonsWrapper}>
+          <Button color={ativarStep ? '' : '#9d9d9d'} click={ativarCep}>
+            Pesquisar por CEP
+          </Button>
+          <Button color={!ativarStep ? '' : '#9d9d9d'} click={ativarEndereco}>
+            Pesquisar por Endereço
+          </Button>
         </div>
+
+        <br />
 
         {ativarStep ? (
           <div className={styles.wrapper}>
             <Input id="cep" type="text" name="cep" placeholder="CEP"></Input>
 
-            <div>
-              <Button click={mostrarCep} color={aviso ? '#f14545' : ''}>{aviso ? 'Campos em branco' : 'Pesquisar por CEP'}</Button>
-            </div>
+            <Button click={mostrarCep} color={aviso ? '#f14545' : ''}>
+              {aviso ? 'Campos em branco' : 'Pesquisar por CEP'}
+            </Button>
+
+            <br />
 
             {endereco && (
               <table width="500" className={styles.table} border="0" cellPadding="10" cellSpacing="0">
@@ -123,22 +139,22 @@ export default function Home() {
             <Input id="localidade" type="text" name="localidade" placeholder="Cidade"></Input>
             <Input id="uf" type="text" name="uf" placeholder="UF"></Input>
 
-            <div>
-              <Button click={mostrarEndereco}>Pesquisar por Endereco</Button>
-            </div>
+            <Button click={mostrarEndereco}>Pesquisar por Endereco</Button>
+
+            <br />
 
             {cep && (
-              <table border="1">
-                <tr>
-                  <td>CEP:</td>
-                  <td>{cep[0].cep}</td>
-                </tr>
+              <table width="500" className={styles.table} border="0" cellPadding="10" cellSpacing="0">
+                <tbody>
+                  <tr style={{ backgroundColor: '#eee' }}>
+                    <td>CEP:</td>
+                    <td>{cep[0].cep}</td>
+                  </tr>
+                </tbody>
               </table>
             )}
           </div>
         )}
-
-
       </Container>
       <Footer />
     </>
