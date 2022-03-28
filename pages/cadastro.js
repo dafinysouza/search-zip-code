@@ -2,16 +2,15 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import Input from '../src/components/Input';
+import Header from '../src/components/Header';
 import Container from '../src/components/Container';
+import Input from '../src/components/Input';
 import Button from '../src/components/Button';
 import Text from '../src/components/Text/Index';
 import Link from 'next/link';
 import Footer from '../src/components/Footer';
 
 function Cadastro() {
-  const router = useRouter();
-
   useEffect(() => {}, []);
 
   function cadastrarUsuario() {
@@ -34,9 +33,10 @@ function Cadastro() {
       <Head>
         <title>Cadastro</title>
       </Head>
-      <Container>
-        <Text tag="h1">Faça seu Cadastro.</Text>
 
+      <Header text="Faça seu Cadastro." />
+
+      <Container>
         <Input type="text" placeholder="Nome" />
 
         <Input type="email" placeholder="E-mail" />
