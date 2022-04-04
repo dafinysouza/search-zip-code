@@ -5,7 +5,7 @@ import Header from '../src/components/Header';
 import Container from '../src/components/Container';
 import Input from '../src/components/Input';
 import Button from '../src/components/Button';
-import Text from '../src/components/Text/Index';
+import Text from '../src/components/Text';
 import Link from 'next/link';
 import Footer from '../src/components/Footer';
 
