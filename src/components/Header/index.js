@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './style.module.css';
 
-import Text from '../Text';
 import Container from '../Container';
+import Text from '../Text';
 
 const Header = ({ text }) => {
   return (
