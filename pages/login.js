@@ -1,52 +1,66 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
-import Header from '../src/components/Header';
-import Container from '../src/components/Container';
-import Input from '../src/components/Input';
-import Button from '../src/components/Button';
-import Text from '../src/components/Text';
-import Link from 'next/link';
-import Footer from '../src/components/Footer';
+import Header from "../src/components/Header";
+import Container from "../src/components/Container";
+import Input from "../src/components/Input";
+import Button from "../src/components/Button";
+import Text from "../src/components/Text";
+import Link from "next/link";
+import Footer from "../src/components/Footer";
 
 function Login() {
   const [aviso, setAviso] = useState(false);
+  const [dados, setDados] = useState(null);
+  const [fetchStatus, setFetchStatus] = useState(null);
 
   const router = useRouter();
 
-  const user = [
-    {
-      username: 'convidado',
-      email: 'convidado@email.com',
-      password: 'senha123',
-    },
-  ];
-
   useEffect(() => {
-    if (window.localStorage.getItem('userAccess') == null) {
-      window.localStorage.setItem('userAccess', JSON.stringify(user));
-      window.localStorage.setItem('currentUser', null);
+    if (fetchStatus) {
+      return router.push("/");
     }
-  }, []);
+  }, [fetchStatus]);
 
   function validarUsuario() {
     const inputEmail = document.querySelector('input[type="email"]').value;
     const inputPassword = document.querySelector('input[type="password"]').value;
 
-    const localStorageEmail = JSON.parse(window.localStorage.getItem('userAccess'));
+    if (inputEmail != "" && inputPassword != "") {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: inputEmail,
+          password: inputPassword,
+        }),
+      };
 
-    localStorageEmail.map((item) => {
-      if (inputEmail === item.email && inputPassword === item.password) {
-        window.localStorage.setItem('currentUser', item.username);
-        return router.push('/');
-      } else {
+      fetch("http://localhost:3000/auth/authenticate", requestOptions)
+        .then((response) => {
+          response.json();
+          if (response.status === 200) {
+            setFetchStatus(true);
+          } else {
+            setAviso(true);
+            setTimeout(() => {
+              setAviso(false);
+            }, 1000);
+          }
+        })
+        .then((data) => {
+          setDados(data);
+          console.log("data: ", data);
+        });
+    } else {
+      if (!fetchStatus) {
         setAviso(true);
         setTimeout(() => {
           setAviso(false);
         }, 1000);
       }
-    });
+    }
   }
 
   return (
@@ -62,8 +76,8 @@ function Login() {
 
         <Input type="password" placeholder="Senha" />
 
-        <Button click={validarUsuario} color={aviso ? '#f14545' : ''}>
-          {aviso ? 'Dados Inválidos' : 'Acessar'}
+        <Button click={validarUsuario} color={aviso ? "#f14545" : ""}>
+          {aviso ? "Dados Inválidos" : "Acessar"}
         </Button>
 
         <Text tag="p">
