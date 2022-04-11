@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import Head from 'next/head';
+import { useState } from "react";
+import Head from "next/head";
 
-import Header from '../src/components/Header';
-import Container from '../src/components/Container';
-import Input from '../src/components/Input';
-import Button from '../src/components/Button';
-import Text from '../src/components/Text';
-import Link from 'next/link';
-import Footer from '../src/components/Footer';
+import Header from "../src/components/Header";
+import Container from "../src/components/Container";
+import Input from "../src/components/Input";
+import Button from "../src/components/Button";
+import Text from "../src/components/Text";
+import Link from "next/link";
+import Footer from "../src/components/Footer";
 
 function Cadastro() {
   const [aviso, setAviso] = useState(false);
@@ -17,15 +17,18 @@ function Cadastro() {
     const inputEmail = document.querySelector('input[type="email"]').value;
     const inputPassword = document.querySelector('input[type="password"]').value;
 
-    const localStorageData = JSON.parse(window.localStorage.getItem('userAccess'));
+    if (inputNome != "" && inputEmail != "" && inputPassword != "") {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: inputNome,
+          email: inputEmail,
+          password: inputPassword,
+        }),
+      };
 
-    if (inputNome != '' && inputEmail != '' && inputPassword != '') {
-      localStorageData.push({
-        username: inputNome,
-        email: inputEmail,
-        password: inputPassword,
-      });
-      window.localStorage.setItem('userAccess', JSON.stringify(localStorageData));
+      fetch("http://localhost:3000/auth/cadastro", requestOptions);
     } else {
       setAviso(true);
       setTimeout(() => {
@@ -49,8 +52,8 @@ function Cadastro() {
 
         <Input type="password" placeholder="Senha" />
 
-        <Button click={cadastrarUsuario} color={aviso ? '#f14545' : ''}>
-          {aviso ? 'Campos em branco' : 'Cadastrar'}
+        <Button click={cadastrarUsuario} color={aviso ? "#f14545" : ""}>
+          {aviso ? "Campos em branco" : "Cadastrar"}
         </Button>
 
         <Text tag="p">
